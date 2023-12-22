@@ -1,0 +1,14 @@
+package users
+
+import ("templ/models")
+
+
+templ List(users []models.User) {
+    <h1>Users</h1>
+
+    <ul>
+        for _, user := range users {
+            <li>{ user.Name }</li>
+        }
+    </ul>
+}
