@@ -10,9 +10,9 @@ import (
 
 func (h *Handler) List(c echo.Context) error {
 	usrs := []models.User{
-		{Name: "John"},
-		{Name: "Jane"},
-		{Name: "Ronaldo"},
+		{FirstName: "John", LastName: "Doe"},
+		{FirstName: "Jane", LastName: "Doe"},
+		{FirstName: "Ronaldo", LastName: "Fenomeno"},
 	}
 
 	return render.Render(c, users.List(usrs))
