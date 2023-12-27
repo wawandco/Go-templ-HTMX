@@ -1,7 +1,7 @@
-package users
+package tasks
 
 import (
-	"templ/layouts/users"
+	users "templ/components/tasks"
 	"templ/models"
 	"templ/render"
 

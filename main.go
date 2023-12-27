@@ -1,8 +1,8 @@
 package main
 
 import (
-	"templ/actions/users"
 	"templ/db"
+	"templ/handlers/tasks"
 
 	"github.com/labstack/echo/v4"
 )
@@ -12,7 +12,7 @@ func main() {
 
 	app := echo.New()
 
-	userHandler := users.Handler{DB: db}
-	app.GET("/", userHandler.List)
+	taskHandler := tasks.Handler{DB: db}
+	app.GET("/", taskHandler.List)
 	app.Start(":8080")
 }

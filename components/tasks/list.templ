@@ -1,0 +1,18 @@
+package tasks
+
+import (
+    "templ/models"
+    "templ/components"
+    )
+
+
+templ List(users []models.User) {
+    @components.Application() {
+        <h1>Users</h1>
+        <ul>
+            for _, user := range users {
+                <li>{ user.FirstName }</li>
+            }
+        </ul>
+    }
+}
