@@ -9,11 +9,7 @@ import (
 )
 
 func (h *Handler) List(c echo.Context) error {
-	usrs := []models.User{
-		{FirstName: "John", LastName: "Doe"},
-		{FirstName: "Jane", LastName: "Doe"},
-		{FirstName: "Ronaldo", LastName: "Fenomeno"},
-	}
+	usrs := models.Tasks{}
 
 	return render.Render(c, users.List(usrs))
 }

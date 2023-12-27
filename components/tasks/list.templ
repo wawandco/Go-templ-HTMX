@@ -6,12 +6,12 @@ import (
     )
 
 
-templ List(users []models.User) {
+templ List(tasks models.Tasks) {
     @components.Application() {
-        <h1>Users</h1>
+        <h1>Tasks</h1>
         <ul>
-            for _, user := range users {
-                <li>{ user.FirstName }</li>
+            for _, task := range tasks {
+                <li>{ task.Title }</li>
             }
         </ul>
     }
