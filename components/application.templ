@@ -4,11 +4,12 @@ package components
 templ Application() {
     <html lang="en">
     <head>
+        <script src="https://unpkg.com/hyperscript.org@0.9.12"></script>
         <script src="https://cdn.tailwindcss.com"></script>
         <script src="https://unpkg.com/htmx.org@1.9.10" integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC" crossorigin="anonymous"></script>
-        <title>Document</title>
+        <title>Todo</title>
     </head>
-    <body>
+    <body class="bg-slate-900 flex flex-col justify-center items-center p-[100px] px-[300px]">
         { children... }
     </body>
     </html>

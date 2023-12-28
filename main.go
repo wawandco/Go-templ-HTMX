@@ -14,5 +14,6 @@ func main() {
 
 	taskHandler := tasks.Handler{DB: db}
 	app.GET("/", taskHandler.List)
+	app.POST("/tasks", taskHandler.Create)
 	app.Start(":8080")
 }

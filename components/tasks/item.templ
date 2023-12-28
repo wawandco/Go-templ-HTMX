@@ -1,0 +1,16 @@
+package tasks
+
+import (
+    "templ/models"
+    )
+
+templ Item(task models.Task) {
+    <div class="flex gap-3 text items-center p-5">
+        <div>
+            <input type="checkbox" />
+        </div>
+        <div class="text-gray-500 font-semibord text-base">
+            <h3>{task.Title}</h3>
+        </div>
+    </div>
+}

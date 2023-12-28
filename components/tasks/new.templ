@@ -1,0 +1,20 @@
+package tasks
+
+templ New(err ...string) {
+    <div class="flex gap-3 text items-center p-5 rounded-lg w-full bg-slate-800" id="input">
+        <div>
+            <button hx-post="/tasks" hx-include="[name='title']" hx-target="#input" hx-swap="outerHTML" type="button" class="rounded-full h-8 w-8 border border-gray-600" _="on htmx:afterRequest(issueRequest) trigger updateList on #list end"></button>
+        </div>
+        <div class="flex flex-col">
+            <input type="text" name="title" placeholder="Add a task" class="text-white w-full border-none bg-slate-800" 
+            />
+            <div>
+                <p>
+                    if len(err) > 0 {
+                        <span class="text-red-500 text-sm">{err[0]}</span>
+                    }
+                </p>
+            </div>
+        </div>
+    </div>
+}

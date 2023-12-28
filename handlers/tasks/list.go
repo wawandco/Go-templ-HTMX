@@ -1,15 +1,22 @@
 package tasks
 
 import (
-	users "templ/components/tasks"
-	"templ/models"
+	tasksC "templ/components/tasks"
+	"templ/internal/tasks"
 	"templ/render"
 
 	"github.com/labstack/echo/v4"
 )
 
 func (h *Handler) List(c echo.Context) error {
-	usrs := models.Tasks{}
+	tsks, err := tasks.List(h.DB)
+	if err != nil {
+		return err
+	}
 
-	return render.Render(c, users.List(usrs))
+	if c.Request().Header.Get("Hx-Request") == "true" {
+		return render.Render(c, tasksC.Table(tsks))
+	}
+
+	return render.Render(c, tasksC.List(tsks))
 }
