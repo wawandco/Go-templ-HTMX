@@ -5,9 +5,9 @@ import (
     )
 
 templ Table(tks models.Tasks){
-    <div id="list" class="flex flex-col rounded-lg w-full bg-slate-800 divide-y mt-5" hx-get="/" hx-trigger="updateList" hx-swap="outerHTML" >
-        for _, item := range tks {
-            @Item(item)
+    <div id="list" class="flex flex-col rounded-lg w-full bg-slate-800 divide-y divide-gray-600 mt-5" hx-get="/" hx-trigger="updateList" hx-swap="outerHTML" >
+        for index, item := range tks {
+            @Item(item, index)
         }
     </div>
 }

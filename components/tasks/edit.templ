@@ -5,19 +5,20 @@ import (
     "templ/models"
 )
 
-templ Item(task models.Task, index int) {
-    <div id={fmt.Sprintf("task_%d", index)} class="w-full p-5 flex items-center justify-between">
+templ Edit(tsk models.Task) {
+        <div class="w-full p-5 flex items-center justify-between">
         <div class="flex gap-3 text items-center">
             <div>
                 <input type="checkbox" />
             </div>
             <div class="text-gray-500 font-semibord text-base">
-                <h3>{task.Title}</h3>
+                <input type="text" name="title" value={tsk.Title} placeholder="Add a task"  autofocus class="text-white w-full border-none bg-transparent outline-none" 
+                />
             </div>
         </div>
 
         <div class="flex items-center gap-5">
-            <button type="button" hx-delete={fmt.Sprintf("/tasks/%s", task.ID.String())} hx-swap="none"
+            <button type="button" hx-delete={fmt.Sprintf("/tasks/%s", tsk.ID.String())} hx-swap="none"
             _="on htmx:afterRequest(issueRequest) trigger updateList on #list end
             on htmx:afterRequest(issueRequest) trigger updateCount on #count end">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
@@ -25,7 +26,7 @@ templ Item(task models.Task, index int) {
                 </svg>
             </button>
             
-            <button type="button" hx-get={fmt.Sprintf("/tasks/%s", task.ID.String())} hx-swap="outerHTML" hx-target={fmt.Sprintf("#task_%d", index)}>
+            <button type="button">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                     <g clip-path="url(#clip0_5522_5329)">
                         <path d="M15 1.66675L18.3334 5.00008M1.66669 18.3334L2.73035 14.4333C2.79975 14.1789 2.83445 14.0516 2.88771 13.933C2.93501 13.8276 2.99312 13.7275 3.06112 13.6342C3.1377 13.5291 3.23095 13.4358 3.41744 13.2493L12.0286 4.63815C12.1936 4.47315 12.2761 4.39064 12.3713 4.35973C12.4549 4.33254 12.5451 4.33254 12.6288 4.35973C12.7239 4.39064 12.8064 4.47315 12.9714 4.63815L15.3619 7.02868C15.527 7.19368 15.6095 7.27619 15.6404 7.37132C15.6676 7.45501 15.6676 7.54515 15.6404 7.62884C15.6095 7.72398 15.527 7.80648 15.3619 7.97149L6.75077 16.5827C6.56428 16.7692 6.47103 16.8624 6.36592 16.939C6.2726 17.007 6.17246 17.0651 6.06712 17.1124C5.94848 17.1657 5.82125 17.2004 5.5668 17.2697L1.66669 18.3334Z" stroke="#344054" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
