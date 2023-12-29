@@ -9,8 +9,10 @@ templ Application() {
         <script src="https://unpkg.com/htmx.org@1.9.10" integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC" crossorigin="anonymous"></script>
         <title>Todo</title>
     </head>
-    <body class="bg-slate-900 flex flex-col justify-center items-center p-[100px] px-[300px]">
-        { children... }
+    <body class="bg-slate-900 flex flex-col justify-center items-center">
+        <div class="w-[430px] md:w-[540px] pt-12">
+                { children... }
+        </div>
     </body>
     </html>
 }

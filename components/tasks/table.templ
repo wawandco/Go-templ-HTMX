@@ -4,10 +4,13 @@ import (
     "templ/models"
     )
 
-templ Table(tks models.Tasks){
-    <div id="list" class="flex flex-col rounded-lg w-full bg-slate-800 divide-y divide-gray-600 mt-5" hx-get="/" hx-trigger="updateList" hx-swap="outerHTML" >
-        for index, item := range tks {
-            @Item(item, index)
-        }
+templ Table(tks models.Tasks, currentRoute string){
+    <div id="list" hx-get={currentRoute} hx-trigger="updateList" hx-swap="outerHTML">
+        <div  class="flex flex-col rounded-t-lg w-full bg-slate-800 divide-y divide-gray-600 mt-5 overflow-auto max-h-[454px]"  >
+            for index, item := range tks {
+                @Item(item, index)
+            }
+        </div>
+        @Nav(currentRoute)
     </div>
 }

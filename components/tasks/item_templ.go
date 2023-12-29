@@ -36,14 +36,45 @@ func Item(task models.Task, index int) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" class=\"w-full p-5 flex items-center justify-between\"><div class=\"flex gap-3 text items-center\"><div><input type=\"checkbox\"></div><div class=\"text-gray-500 font-semibord text-base\"><h3>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" class=\"w-full p-5 flex items-center justify-between\"><div class=\"flex gap-3 text items-center\"><div>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		if task.Active {
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<button hx-patch=\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(fmt.Sprintf("/tasks/%s/update_status?index=%d", task.ID.String(), index)))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" hx-swap=\"none\" type=\"button\" _=\"on htmx:afterRequest(issueRequest) trigger updateList on #list end\n                    on htmx:afterRequest(issueRequest) trigger updateCount on #count end\" class=\"bg-yellow-500 rounded-full p-1 h-5 w-5\"></button>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+		} else {
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<button hx-patch=\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(fmt.Sprintf("/tasks/%s/update_status?index=%d", task.ID.String(), index)))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" hx-swap=\"none\" type=\"button\" _=\"on htmx:afterRequest(issueRequest) trigger updateList on #list end\n                    on htmx:afterRequest(issueRequest) trigger updateCount on #count end\" class=\"bg-green-500 rounded-full p-1 h-5 w-5\"></button>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><div class=\"text-gray-500 font-semibord text-base\"><h3>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var2 string
 		templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(task.Title)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components\tasks\item.templ`, Line: 14, Col: 31}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components\tasks\item.templ`, Line: 32, Col: 31}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 		if templ_7745c5c3_Err != nil {
@@ -61,7 +92,7 @@ func Item(task models.Task, index int) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(fmt.Sprintf("/tasks/%s", task.ID.String())))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(fmt.Sprintf("/tasks/%s?index=%d", task.ID.String(), index)))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

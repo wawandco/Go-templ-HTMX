@@ -5,8 +5,8 @@ import (
 	"templ/models"
 )
 
-func List(db *sql.DB) (models.Tasks, error) {
-	rows, err := db.Query("SELECT * FROM tasks ORDER BY active DESC, created_at DESC")
+func CompletedList(db *sql.DB) (models.Tasks, error) {
+	rows, err := db.Query("SELECT * FROM tasks WHERE active = false ORDER BY created_at DESC")
 	if err != nil {
 		return nil, err
 	}

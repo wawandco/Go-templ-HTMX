@@ -23,7 +23,7 @@ func New(err ...string) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"flex gap-3 text items-center p-5 rounded-lg w-full bg-slate-800\" id=\"input\"><div><button hx-post=\"/tasks\" hx-include=\"[name=&#39;title&#39;]\" hx-target=\"#input\" hx-swap=\"outerHTML\" type=\"button\" class=\"rounded-full flex justify-center items-center p-1 border border-gray-600\" _=\"on htmx:afterRequest(issueRequest) trigger updateList on #list end\n            on htmx:afterRequest(issueRequest) trigger updateCount on #count end\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" viewBox=\"0 0 20 20\" fill=\"none\"><path d=\"M10 4.16667V15.8333M4.16667 10H15.8333\" stroke=\"white\" stroke-width=\"1.66667\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path></svg></button></div><div class=\"flex flex-col w-full\"><input type=\"text\" name=\"title\" placeholder=\"Add a task\" class=\"text-white w-full border-none bg-transparent outline-none\"><div><p>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"flex gap-3 text items-center p-5 rounded-lg w-full bg-slate-800\" id=\"input\"><div><button hx-post=\"/tasks\" hx-include=\"[name=&#39;title&#39;]\" hx-target=\"#input\" hx-swap=\"outerHTML\" type=\"button\" class=\"rounded-full flex justify-center items-center p-1 border border-gray-600\" _=\"on htmx:afterRequest(issueRequest) trigger updateList on #list end\n            on htmx:afterRequest(issueRequest) trigger updateCount on #count end\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" viewBox=\"0 0 20 20\" fill=\"none\"><path d=\"M10 4.16667V15.8333M4.16667 10H15.8333\" stroke=\"white\" stroke-width=\"1.66667\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path></svg></button></div><div class=\"flex flex-col w-full\"><input type=\"text\" name=\"title\" autofocus hx-post=\"/tasks\" hx-include=\"this\" hx-target=\"#input\" hx-trigger=\"keyup[keyCode==13]\" hx-swap=\"outerHTML\" placeholder=\"Write a title\" class=\"text-white w-full border-none bg-transparent outline-none\" _=\"on htmx:afterRequest(issueRequest) trigger updateList on #list end\n            on htmx:afterRequest(issueRequest) trigger updateCount on #count end\"><div><p>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -35,7 +35,7 @@ func New(err ...string) templ.Component {
 			var templ_7745c5c3_Var2 string
 			templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(err[0])
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `components\tasks\new.templ`, Line: 19, Col: 66}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `components\tasks\new.templ`, Line: 21, Col: 66}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 			if templ_7745c5c3_Err != nil {

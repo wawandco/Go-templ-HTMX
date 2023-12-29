@@ -9,7 +9,7 @@ import (
 
 func Find(db *sql.DB, ID uuid.UUID) (models.Task, error) {
 	var task models.Task
-	err := db.QueryRow("SELECT * FROM tasks WHERE id = $1", ID).Scan(&task.ID, &task.Title, &task.Active)
+	err := db.QueryRow("SELECT * FROM tasks WHERE id = $1", ID).Scan(&task.ID, &task.Title, &task.Active, &task.CreatedAt, &task.UpdatedAt)
 	if err != nil {
 		return models.Task{}, err
 	}

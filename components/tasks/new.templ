@@ -12,7 +12,9 @@ templ New(err ...string) {
             </button>
         </div>
         <div class="flex flex-col w-full">
-            <input type="text" name="title" placeholder="Add a task" class="text-white w-full border-none bg-transparent outline-none" 
+            <input type="text" name="title" autofocus hx-post="/tasks" hx-include="this" hx-target="#input" hx-trigger="keyup[keyCode==13]" hx-swap="outerHTML" placeholder="Write a title" class="text-white w-full border-none bg-transparent outline-none" 
+            _="on htmx:afterRequest(issueRequest) trigger updateList on #list end
+            on htmx:afterRequest(issueRequest) trigger updateCount on #count end"
             />
             <div>
                 <p>
