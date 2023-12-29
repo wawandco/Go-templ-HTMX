@@ -14,7 +14,7 @@ import (
 func (h *Handler) Update(c echo.Context) error {
 	id, _ := uuid.Parse(c.Param("id"))
 	index := c.Request().URL.Query().Get("index")
-	title := c.FormValue("titleUpdate")
+	title := c.FormValue("title" + index)
 	t, err := tasks.Find(h.DB, id)
 	if err != nil {
 		return err

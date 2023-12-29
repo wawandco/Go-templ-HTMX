@@ -6,6 +6,11 @@ import (
 
 templ Count(n int) {
     <span>
-        {strconv.Itoa(n)} tasks left
+        {strconv.Itoa(n)} 
+        if (n == 1) {
+            task left 
+        } else { 
+            tasks lefts 
+        }
     </span>
 }
