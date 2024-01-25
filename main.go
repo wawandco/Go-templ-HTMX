@@ -3,14 +3,15 @@ package main
 import (
 	"templ/db"
 	"templ/handlers/tasks"
+	"templ/middleware"
 
 	"github.com/labstack/echo/v4"
 )
 
 func main() {
 	db := db.GetConnection()
-
 	app := echo.New()
+	app.Use(middleware.SetCustomContext)
 
 	taskHandler := tasks.Handler{DB: db}
 	app.GET("/", taskHandler.List)
