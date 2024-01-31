@@ -3,10 +3,10 @@ module templ
 go 1.21.1
 
 require (
-	github.com/a-h/templ v0.2.501
+	github.com/a-h/templ v0.2.543
+	github.com/go-playground/form v3.1.4+incompatible
 	github.com/google/uuid v1.4.0
 	github.com/labstack/echo/v4 v4.11.4
-	github.com/lib/pq v1.10.9
 )
 
 require (
@@ -19,4 +19,5 @@ require (
 	golang.org/x/net v0.19.0 // indirect
 	golang.org/x/sys v0.15.0 // indirect
 	golang.org/x/text v0.14.0 // indirect
+	gopkg.in/go-playground/assert.v1 v1.2.1 // indirect
 )

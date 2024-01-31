@@ -1,0 +1,20 @@
+package invoices
+
+import "templ/components"
+
+templ New(){
+    @components.Application(){
+        <div class="w-full flex flex-col gap-8">
+            <div class="flex justify-between items-center w-full">
+                <h1 class="text-2xl font-bold text-white">New invoice</h1>
+
+                <div class="flex gap-2 items-center">
+                    <a href="/" class="bg-white hover:bg-gray-200 border py-2 px-4 rounded">New</a>
+                    <a href="#" class="bg-slate-600 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded">Download</a>
+                </div>
+            </div>
+
+            @Form()
+        </div>
+    }
+}

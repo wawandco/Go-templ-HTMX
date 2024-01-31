@@ -1,0 +1,56 @@
+package invoices
+
+import "fmt"
+
+templ Line(id string) {
+    <tr id={fmt.Sprintf("line_%s", id)}>
+        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+            <button 
+            @click="count--" 
+            hx-delete={fmt.Sprintf("/remove-line?line_%s", id)} 
+            hx-target={fmt.Sprintf("#line_%s", id)} 
+            hx-swap="outerHTML" 
+            _="on htmx:afterRequest(e) trigger setSubtotal on #subtotal end on htmx:afterRequest(e) trigger setTotal on #total"
+            class="text-red-600 hover:text-red-900 mt-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 11 13" fill="none">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M1.73594 13C1.46094 13 1.22031 12.8917 1.01406 12.675C0.807813 12.4583 0.704687 12.2056 0.704687 11.9167V1.625H0V0.541667H3.23125V0H7.76875V0.541667H11V1.625H10.2953V11.9167C10.2953 12.2056 10.1922 12.4583 9.98594 12.675C9.77969 12.8917 9.53906 13 9.26406 13H1.73594ZM9.26406 1.625H1.73594V11.9167H9.26406V1.625ZM4.58906 10.3639H3.55781V3.15972H4.58906V10.3639ZM6.41094 10.3639H7.44219V3.15972H6.41094V10.3639Z" fill="#FF3B30"/>
+                </svg>
+            </button>
+        </td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+            @Input(templ.Attributes{"type": "text", "class": "w-full rounded-md border p-2 mt-2 bg-slate-600 text-white border-slate-800"})
+        </td>
+        
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+            @Input(templ.Attributes{
+                "type": "number", 
+                "class": "w-full rounded-md border p-2 mt-2 bg-slate-600 text-white border-slate-800", 
+                "value": "0", 
+                "name": fmt.Sprintf("InvoiceLines[%s].UnitPrice", id),
+                "hx-post":  fmt.Sprintf("/set-total-line?line=%s", id), 
+                "hx-target": fmt.Sprintf("#total_line_%s", id), 
+                "hx-swap": "innerHTML", 
+                "hx-trigger": "keyup changed delay:200ms", 
+                "hx-include":fmt.Sprintf("[name='InvoiceLines[%s].Quantity']", id), 
+                "_":"on htmx:afterRequest(e) trigger setSubtotal on #subtotal end on htmx:afterRequest(e) trigger setTotal on #total"})
+        </td>
+
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+            @Input(templ.Attributes{
+                "type": "number", 
+                "class": "w-full rounded-md border p-2 mt-2 bg-slate-600 text-white border-slate-800",
+                "value": "0", 
+                "name": fmt.Sprintf("InvoiceLines[%s].Quantity", id),
+                "hx-post":  fmt.Sprintf("/set-total-line?line=%s", id), 
+                "hx-target": fmt.Sprintf("#total_line_%s", id), 
+                "hx-swap": "innerHTML",
+                "hx-trigger": "keyup changed delay:200ms", 
+                "hx-include":fmt.Sprintf("[name='InvoiceLines[%s].UnitPrice']", id), 
+                "_":"on htmx:afterRequest(e) trigger setSubtotal on #subtotal end on htmx:afterRequest(e) trigger setTotal on #total"})
+        </td>
+
+        <td id={fmt.Sprintf("total_line_%s", id)} class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+            @TotalLine("$0.00")
+        </td>
+    </tr>
+}
