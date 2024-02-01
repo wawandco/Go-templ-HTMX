@@ -1,9 +1,10 @@
 package invoices
 
 import "time"
+import "templ/models"
 
-templ Form() {
-    <form class="bg-slate-700 rounded-md w-full p-5 flex flex-col gap-4" x-data="{count:0}"> 
+templ Form(invoice models.Invoice) {
+    <form action="/download" method="POST" class="bg-slate-700 rounded-md w-full p-5 flex flex-col gap-4" x-data="{count:0, deleted:0}" id="invoice-form"> 
         <div class="grid grid-cols-5 gap-3"> 
             <div> 
                 <label class="text-white font-semibold"> 
@@ -21,6 +22,7 @@ templ Form() {
 
         <div class="flex gap-3 pb-2 pt-3"> 
             <input type="hidden" name="lines" x-model="count" />
+            <input type="hidden" name="lineDeleted" x-model="deleted" />
             <button hx-get="/new-line" hx-include="[name='lines']" hx-target="#lines-container" hx-swap="beforeend" hx-trigger="click" @click="count++" class="rounded-full bg-green-100 text-green-500 px-3 py-1 hover:bg-green-200 text-sm"> 
                 Add Line
             </button>
@@ -44,21 +46,16 @@ templ Form() {
                     </th>
                 </tr>
             </thead>
-
-            <tbody id="lines-container">
-                @Line("0")
+            
+            <tbody id="lines-container" hx-put="/update-lines" hx-trigger="updateLines">
+                @Lines(invoice.InvoiceLines)
             </tbody>
         </table>
 
         <div class="flex justify-end w-full">
             <div class="flex flex-col gap-3 bg-slate-600 text-white rounded-lg p-4"> 
                 <div id="subtotal" class="flex items-center gap-2" hx-post="/set-subtotal" hx-trigger="setSubtotal" hx-target="this"> 
-                    <span> 
-                        Subtotal:
-                    </span>
-                    <span> 
-                        $0.00
-                    </span>
+                    @QuantityComponent("$0", "Subtotal")
                 </div>
 
                 <div class="flex items-center gap-2"> 
@@ -71,12 +68,7 @@ templ Form() {
                     </span>
                 </div>
                 <div  id="total" class="flex items-center gap-2"  hx-post="/set-total" hx-trigger="setTotal" hx-target="this"> 
-                    <span> 
-                        Total:
-                    </span>
-                    <span> 
-                        $0.00
-                    </span>
+                    @QuantityComponent("$0", "Total")
                 </div>
             </div>
         </div>

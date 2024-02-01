@@ -1,7 +1,6 @@
 package invoices
 
 import (
-	"fmt"
 	"strconv"
 	invoicesC "templ/components/invoices"
 	"templ/models"
@@ -17,10 +16,8 @@ func (h *Handler) SetTotalLine(c echo.Context) error {
 	formParams, _ := c.FormParams()
 
 	line.Quantity, _ = strconv.Atoi(formParams.Get("InvoiceLines[" + lineParam + "].Quantity"))
-	line.UnitPrice, _ = strconv.ParseFloat(formParams.Get("InvoiceLines["+lineParam+"].UnitPrice"), 64)
+	line.UnitPrice, _ = strconv.Atoi(formParams.Get("InvoiceLines[" + lineParam + "].UnitPrice"))
 
-	total := float64(line.Quantity) * line.UnitPrice
-
-	component := invoicesC.TotalLine(fmt.Sprintf("$%.2f", total))
+	component := invoicesC.TotalLine(line.Total())
 	return render.Render(c, component)
 }

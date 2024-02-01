@@ -19,11 +19,6 @@ func (h *Handler) SetSubtotal(c echo.Context) error {
 		return err
 	}
 
-	var subTotal float64
-	for _, line := range invoice.InvoiceLines {
-		subTotal += float64(line.Quantity) * line.UnitPrice
-	}
-
-	component := invoicesC.QuantityComponent(fmt.Sprintf("$%.2f", subTotal), "Subtotal")
+	component := invoicesC.QuantityComponent(fmt.Sprintf("$%.2f", invoice.GetSubtotal()), "Subtotal")
 	return render.Render(c, component)
 }

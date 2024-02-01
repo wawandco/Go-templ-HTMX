@@ -11,8 +11,9 @@ import "io"
 import "bytes"
 
 import "time"
+import "templ/models"
 
-func Form() templ.Component {
+func Form(invoice models.Invoice) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
 		if !templ_7745c5c3_IsBuffer {
@@ -25,7 +26,7 @@ func Form() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<form class=\"bg-slate-700 rounded-md w-full p-5 flex flex-col gap-4\" x-data=\"{count:0}\"><div class=\"grid grid-cols-5 gap-3\"><div><label class=\"text-white font-semibold\">Reference</label>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<form action=\"/download\" method=\"POST\" class=\"bg-slate-700 rounded-md w-full p-5 flex flex-col gap-4\" x-data=\"{count:0, deleted:0}\" id=\"invoice-form\"><div class=\"grid grid-cols-5 gap-3\"><div><label class=\"text-white font-semibold\">Reference</label>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -41,15 +42,23 @@ func Form() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div></div><div class=\"flex gap-3 pb-2 pt-3\"><input type=\"hidden\" name=\"lines\" x-model=\"count\"> <button hx-get=\"/new-line\" hx-include=\"[name=&#39;lines&#39;]\" hx-target=\"#lines-container\" hx-swap=\"beforeend\" hx-trigger=\"click\" @click=\"count++\" class=\"rounded-full bg-green-100 text-green-500 px-3 py-1 hover:bg-green-200 text-sm\">Add Line</button></div><table class=\"mb-2 w-full pt-5 rounded-md\"><thead><tr><th width=\"2%\" scope=\"col\" class=\"px-4 py-3 bg-slate-600 text-left text-xs font-medium text-white uppercase tracking-wider rounded-l-lg\"></th><th scope=\"col\" class=\"px-6 py-3 bg-slate-600 text-left text-xs font-medium text-white uppercase tracking-wider\">Description</th><th width=\"12%\" scope=\"col\" class=\"px-4 py-3 bg-slate-600 text-left text-xs font-medium text-white uppercase tracking-wider\">Unit Price</th><th width=\"12%\" scope=\"col\" class=\"px-4 py-3 bg-slate-600 text-left text-xs font-medium text-white uppercase tracking-wider\">Qty</th><th width=\"15%\" scope=\"col\" class=\"px-4 py-3 bg-slate-600 text-left text-xs font-medium text-white uppercase tracking-wider rounded-r-lg\">Line Total</th></tr></thead> <tbody id=\"lines-container\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div></div><div class=\"flex gap-3 pb-2 pt-3\"><input type=\"hidden\" name=\"lines\" x-model=\"count\"> <input type=\"hidden\" name=\"lineDeleted\" x-model=\"deleted\"> <button hx-get=\"/new-line\" hx-include=\"[name=&#39;lines&#39;]\" hx-target=\"#lines-container\" hx-swap=\"beforeend\" hx-trigger=\"click\" @click=\"count++\" class=\"rounded-full bg-green-100 text-green-500 px-3 py-1 hover:bg-green-200 text-sm\">Add Line</button></div><table class=\"mb-2 w-full pt-5 rounded-md\"><thead><tr><th width=\"2%\" scope=\"col\" class=\"px-4 py-3 bg-slate-600 text-left text-xs font-medium text-white uppercase tracking-wider rounded-l-lg\"></th><th scope=\"col\" class=\"px-6 py-3 bg-slate-600 text-left text-xs font-medium text-white uppercase tracking-wider\">Description</th><th width=\"12%\" scope=\"col\" class=\"px-4 py-3 bg-slate-600 text-left text-xs font-medium text-white uppercase tracking-wider\">Unit Price</th><th width=\"12%\" scope=\"col\" class=\"px-4 py-3 bg-slate-600 text-left text-xs font-medium text-white uppercase tracking-wider\">Qty</th><th width=\"15%\" scope=\"col\" class=\"px-4 py-3 bg-slate-600 text-left text-xs font-medium text-white uppercase tracking-wider rounded-r-lg\">Line Total</th></tr></thead> <tbody id=\"lines-container\" hx-put=\"/update-lines\" hx-trigger=\"updateLines\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = Line("0").Render(ctx, templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = Lines(invoice.InvoiceLines).Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</tbody></table><div class=\"flex justify-end w-full\"><div class=\"flex flex-col gap-3 bg-slate-600 text-white rounded-lg p-4\"><div id=\"subtotal\" class=\"flex items-center gap-2\" hx-post=\"/set-subtotal\" hx-trigger=\"setSubtotal\" hx-target=\"this\"><span>Subtotal:</span> <span>$0.00</span></div><div class=\"flex items-center gap-2\"><label>Discount</label>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</tbody></table><div class=\"flex justify-end w-full\"><div class=\"flex flex-col gap-3 bg-slate-600 text-white rounded-lg p-4\"><div id=\"subtotal\" class=\"flex items-center gap-2\" hx-post=\"/set-subtotal\" hx-trigger=\"setSubtotal\" hx-target=\"this\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = QuantityComponent("$0", "Subtotal").Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><div class=\"flex items-center gap-2\"><label>Discount</label>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -57,7 +66,15 @@ func Form() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<span>%</span></div><div id=\"total\" class=\"flex items-center gap-2\" hx-post=\"/set-total\" hx-trigger=\"setTotal\" hx-target=\"this\"><span>Total:</span> <span>$0.00</span></div></div></div></form>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<span>%</span></div><div id=\"total\" class=\"flex items-center gap-2\" hx-post=\"/set-total\" hx-trigger=\"setTotal\" hx-target=\"this\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = QuantityComponent("$0", "Total").Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div></div></div></form>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

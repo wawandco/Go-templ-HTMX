@@ -1,9 +1,10 @@
 package main
 
 import (
+	"net/http"
 	"templ/handlers/invoices"
 
-	"templ/middleware"
+	"templ/middlewares"
 
 	"github.com/labstack/echo/v4"
 )
@@ -11,7 +12,7 @@ import (
 func main() {
 
 	app := echo.New()
-	app.Use(middleware.SetCustomContext)
+	app.Use(middlewares.SetCustomContext)
 
 	invoicesHandlers := invoices.Handler{}
 	app.GET("/", invoicesHandlers.New)
@@ -20,6 +21,11 @@ func main() {
 	app.POST("/set-total-line", invoicesHandlers.SetTotalLine)
 	app.POST("/set-subtotal", invoicesHandlers.SetSubtotal)
 	app.POST("/set-total", invoicesHandlers.SetTotal)
+	app.PUT("/update-lines", invoicesHandlers.UpdateLines)
+	app.POST("/download", invoicesHandlers.Download)
 
+	// serve static files
+	fs := http.FileServer(http.Dir("assets"))
+	app.GET("/assets/*", echo.WrapHandler(http.StripPrefix("/assets/", fs)))
 	app.Start(":8080")
 }

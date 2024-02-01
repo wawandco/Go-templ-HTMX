@@ -1,0 +1,10 @@
+package invoices
+
+import "templ/models"
+import "fmt"
+
+templ Lines(lines models.InvoiceLines) {
+    for key, item := range lines {
+        @Line(fmt.Sprintf("%d", key), item)
+    }
+}

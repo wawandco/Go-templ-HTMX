@@ -11,8 +11,9 @@ import "io"
 import "bytes"
 
 import "templ/components"
+import "templ/models"
 
-func New() templ.Component {
+func New(invoice models.Invoice) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
 		if !templ_7745c5c3_IsBuffer {
@@ -31,11 +32,11 @@ func New() templ.Component {
 				templ_7745c5c3_Buffer = templ.GetBuffer()
 				defer templ.ReleaseBuffer(templ_7745c5c3_Buffer)
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"w-full flex flex-col gap-8\"><div class=\"flex justify-between items-center w-full\"><h1 class=\"text-2xl font-bold text-white\">New invoice</h1><div class=\"flex gap-2 items-center\"><a href=\"/\" class=\"bg-white hover:bg-gray-200 border py-2 px-4 rounded\">New</a> <a href=\"#\" class=\"bg-slate-600 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded\">Download</a></div></div>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"w-full flex flex-col gap-8\"><div class=\"flex justify-between items-center w-full\"><h1 class=\"text-2xl font-bold text-white\">New invoice</h1><div class=\"flex gap-3 items-center\"><a href=\"/\" class=\"bg-white hover:bg-gray-200 border py-2 px-4 rounded h-[39px]\">New</a> <button type=\"submit\" form=\"invoice-form\" class=\"bg-slate-600 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded\">Download</button></div></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = Form().Render(ctx, templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = Form(invoice).Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
