@@ -48,21 +48,19 @@ func (h *Handler) Download(c echo.Context) error {
 
 	page := rod.New().MustConnect().MustPage()
 	page.SetDocumentContent(buffer1.String())
-
 	page.MustWaitLoad()
-
-	bt, err := page.PDF(&proto.PagePrintToPDF{})
+	pdf, err := page.PDF(&proto.PagePrintToPDF{})
 	if err != nil {
 		return err
 	}
 
 	var buffer bytes.Buffer
-	_, err = io.Copy(&buffer, bt)
+	_, err = io.Copy(&buffer, pdf)
 	if err != nil {
 		return err
 	}
 
-	defer bt.Close()
+	defer pdf.Close()
 
 	c.Response().Header().Set("Content-Disposition", "attachment; filename=invoice.pdf")
 	c.Response().Header().Set("HX-Redirect", "invoice.pdf")
