@@ -22,7 +22,7 @@ func main() {
 	app.POST("/set-subtotal", invoicesHandlers.SetSubtotal)
 	app.POST("/set-total", invoicesHandlers.SetTotal)
 	app.PUT("/update-lines", invoicesHandlers.UpdateLines)
-	app.POST("/download", invoicesHandlers.Download)
+	app.GET("/download", invoicesHandlers.Download)
 
 	// serve static files
 	fs := http.FileServer(http.Dir("assets"))

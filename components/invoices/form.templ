@@ -4,7 +4,7 @@ import "time"
 import "templ/models"
 
 templ Form(invoice models.Invoice) {
-    <form action="/download" method="POST" class="bg-slate-700 rounded-md w-full p-5 flex flex-col gap-4" x-data="{count:0, deleted:0}" id="invoice-form"> 
+    <form action="/download" method="GET" class="bg-slate-700 rounded-md w-full p-5 flex flex-col gap-4" x-data="{count:0, deleted:0}" id="invoice-form"> 
         <div class="grid grid-cols-5 gap-3"> 
             <div> 
                 <label class="text-white font-semibold"> 

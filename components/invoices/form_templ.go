@@ -26,7 +26,7 @@ func Form(invoice models.Invoice) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<form action=\"/download\" method=\"POST\" class=\"bg-slate-700 rounded-md w-full p-5 flex flex-col gap-4\" x-data=\"{count:0, deleted:0}\" id=\"invoice-form\"><div class=\"grid grid-cols-5 gap-3\"><div><label class=\"text-white font-semibold\">Reference</label>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<form action=\"/download\" method=\"GET\" class=\"bg-slate-700 rounded-md w-full p-5 flex flex-col gap-4\" x-data=\"{count:0, deleted:0}\" id=\"invoice-form\"><div class=\"grid grid-cols-5 gap-3\"><div><label class=\"text-white font-semibold\">Reference</label>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
