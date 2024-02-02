@@ -23,6 +23,11 @@ func (h *Handler) UpdateLines(c echo.Context) error {
 		return err
 	}
 
+	if lineDeleted < 0 || lineDeleted >= len(invoice.InvoiceLines) {
+		component := invoices.Lines(invoice.InvoiceLines)
+		return render.Render(c, component)
+	}
+
 	invoice.InvoiceLines = append(invoice.InvoiceLines[:lineDeleted], invoice.InvoiceLines[lineDeleted+1:]...)
 
 	component := invoices.Lines(invoice.InvoiceLines)
