@@ -2,7 +2,6 @@ package invoices
 
 import (
 	invoicesC "templ/components/invoices"
-	"templ/context"
 	"templ/models"
 	"templ/render"
 
@@ -10,12 +9,15 @@ import (
 )
 
 func (h *Handler) NewLine(c echo.Context) error {
-	customContext := c.(*context.Custom)
+
+	// value := c.Request().Context().Value("user").(models.User)
+	// fmt.Println(value)
+
 	lines := c.QueryParam("lines")
 	invoiceLine := models.InvoiceLine{
 		Quantity:  0,
 		UnitPrice: 0,
 	}
 	component := invoicesC.Line(lines, invoiceLine)
-	return render.Render(customContext, component)
+	return render.Render(c, component)
 }

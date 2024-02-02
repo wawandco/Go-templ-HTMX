@@ -62,7 +62,11 @@ func Line(id string, line models.InvoiceLine) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = Input(templ.Attributes{"type": "text", "class": "w-full rounded-md border p-2 mt-2 bg-slate-600 text-white border-slate-800", "value": line.Description, "name": fmt.Sprintf("InvoiceLines[%s].Description", id)}).Render(ctx, templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = Input(templ.Attributes{
+			"type":  "text",
+			"class": "w-full rounded-md border p-2 mt-2 bg-slate-600 text-white border-slate-800",
+			"value": line.Description,
+			"name":  fmt.Sprintf("InvoiceLines[%s].Description", id)}).Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

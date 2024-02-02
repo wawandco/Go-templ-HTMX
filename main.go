@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"templ/handlers/invoices"
 
-	"templ/middlewares"
+	middleware "templ/middlewares"
 
 	"github.com/labstack/echo/v4"
 )
@@ -12,7 +12,7 @@ import (
 func main() {
 
 	app := echo.New()
-	app.Use(middlewares.SetCustomContext)
+	app.Use(middleware.SetCurrentUser)
 
 	invoicesHandlers := invoices.Handler{}
 	app.GET("/", invoicesHandlers.New)

@@ -9,6 +9,7 @@ templ Form(invoice models.Invoice) {
             <div> 
                 <label class="text-white font-semibold"> 
                     Reference
+                    // Reference {ctx.Value("user").(models.User).FullName()}
                 </label>
                 @Input(templ.Attributes{"type": "text", "name": "Reference", "class": "w-full rounded-md border p-2 mt-2 bg-slate-600 text-white border-slate-800", "value": "INV-" + time.Now().Format("20060102150405")})
             </div>
