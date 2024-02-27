@@ -1,3 +1,3 @@
 run:
 	@templ generate
-	@sudo go run main.go
+	@go run main.go
